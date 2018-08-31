@@ -6,5 +6,22 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
-  }
+  },
+  "name": "sprint-challenge-node-express",
+  "description": "## Assignments",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelajatu/Sprint-Challenge-Node-Express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelajatu/Sprint-Challenge-Node-Express/issues"
+  },
+  "homepage": "https://github.com/kelajatu/Sprint-Challenge-Node-Express#readme"
 }
