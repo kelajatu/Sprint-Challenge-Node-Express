@@ -6,6 +6,20 @@ const server = express();
 server.use(express.json());
 
 // ACTION ROUTES
+server.post("/actions/", async (req, res) => {
+  if (!req.body.project_id || !req.body.description || !req.body.notes) {
+    res
+      .status(400)
+      .json({ message: "Project Id, Description, and Notes needed" });
+  }
+  try {
+    const results = await actionsHelper.insert(req.body);
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 server.get("/actions/", async (req, res) => {
   try {
     const results = await actionsHelper.get();
@@ -21,18 +35,6 @@ server.get("/actions/:id", async (req, res) => {
   }
   try {
     const results = await actionsHelper.get(req.params.id);
-    res.status(200).json(results);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-server.put("/actions/", async (req, res) => {
-  if (!req.body.project_id || !req.body.description || !req.body.notes) {
-    res.status(400).json({ message: "Body Invalid" });
-  }
-  try {
-    const results = await actionsHelper.insert(req.body);
     res.status(200).json(results);
   } catch (err) {
     res.status(500).json(err);
@@ -71,6 +73,18 @@ server.delete("/actions/:id", async (req, res) => {
 });
 
 // PROJECT ROUTES
+server.post("/projects/", async (req, res) => {
+  if (!req.body.description || !req.body.name) {
+    res.status(400).json({ message: "Description and Name needed" });
+  }
+  try {
+    const results = await projectsHelper.insert(req.body);
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 server.get("/projects/", async (req, res) => {
   try {
     const results = await projectsHelper.get();
@@ -87,19 +101,6 @@ server.get("/projects/:id", async (req, res) => {
   try {
     const results = await projectsHelper.get(req.params.id);
     res.status(200).json(results);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-server.put("/projects/", async (req, res) => {
-  if (!req.body.description || !req.body.name) {
-    res.status(400).json({ message: "Invalid body" });
-    return;
-  }
-  try {
-    const results = await projectsHelper.insert(req.body);
-    res.status(200).json({ results });
   } catch (err) {
     res.status(500).json(err);
   }
